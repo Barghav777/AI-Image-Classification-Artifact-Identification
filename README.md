@@ -40,12 +40,12 @@ Our solution integrates lightweight classification with robust artifact identifi
 - **Explanation Generation:** The LLaVA model generates concise, localized explanations describing the artifact's characteristics. 
 - **Localization:** SHAP-based heatmaps visualize the artifact locations, and bounding boxes provide precise localization. The results are structured in a JSON format for clarity.
 
-![Task 2 Pipeline](task2_training_pipeline.png "Task 2 Pipeline")
+![Task 2 Pipeline](Miscellaneous/task2_training_pipeline.png "Task 2 Pipeline")
 
 ### Unified System Integration
 By combining the high-speed classification capabilities of Task 1 with the granular, explainable artifact extraction of Task 2, we establish a comprehensive end-to-end verification system. The classification model acts as a primary gatekeeper, and when an image is flagged as synthetic, the artifact pipeline is triggered to provide the localized evidence and reasoning behind the decision. 
 
-![Full Pipeline](final_pipeline.png "Full Pipeline")
+![Full Pipeline](Miscellaneous/final_pipeline.png "Full Pipeline")
 
 ## File Structure
 
@@ -138,8 +138,12 @@ python inference.py sample_images/test_fake.png hf_abc123XYZ...
 1. Ensemble Artifact Detection Console Output
 When an image is evaluated, our ensemble of models (XGBoost without parameters, XGBoost with parameters, and Random Forest) independently analyze the ViT features to detect artifacts. The console output below shows how each model casts its "votes" for specific artifacts before the pipeline aggregates them into a final unique list (e.g., 12 total artifacts detected).
 
+![Ensemble Output](Miscellaneous/output.png "Ensemble Output")
+
 2. Localization and Visualization
 After the artifacts are aggregated, SHAP heatmaps and bounding boxes are generated to physically localize the detected issues on the image, accompanied by LLaVA-generated explanations.
+
+![Visual Output](Miscellaneous/example_output.png "Visual Output")
 
 ## Troubleshooting
 
