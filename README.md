@@ -1,4 +1,4 @@
-# Image Classification and Artifact Identification
+# AI Image Classification and Artifact Identification
 
 ## Overview
 Advanced generative models like Stable Diffusion and Adobe Firefly often introduce subtle artifacts that differentiate AI-generated images from real ones. This project aims to develop a machine learning solution to address the growing challenges of detecting and explaining these AI-generated images. 
