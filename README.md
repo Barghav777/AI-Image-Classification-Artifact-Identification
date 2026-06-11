@@ -78,6 +78,10 @@ Your directory should look like this after extracting the files:
 │   │   ├── datasetGenerator.ipynb
 │   │   └── inference_script_task2.py
 │   └── CreatingPerturbations.py
+├── Test_data/
+|   ├── perturbed_images_32/ #test_images
+|   ├── task1_result.json
+|   └── task2_result.json
 ├── inference.py
 ├── README.md
 └── requirements.txt
