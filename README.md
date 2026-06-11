@@ -72,9 +72,8 @@ Your directory should look like this after extracting the files:
 │   │   ├── ai-image-artifacts.txt
 │   │   ├── datasetGenerator.ipynb
 │   │   └── inference_script_task2.py
-│   ├── CreatingPerturbations.py
-│   └── pipeline.py
-└── inference_script.py
+│   └── CreatingPerturbations.py
+└── inference.py
 
 ```
 
