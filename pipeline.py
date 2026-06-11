@@ -1,36 +1,34 @@
-from keras.models import load_model
-import tensorflow as tf
-import numpy as np
-from PIL import Image
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from tensorflow.keras.applications.efficientnet_v2 import preprocess_input
-import joblib
+import sys
 import os
-import xgboost as xgb
-import numpy as np
-from transformers import ViTFeatureExtractor, ViTModel
-from PIL import Image
+import joblib
 import torch
 import shap
-import numpy as np
-from skimage.transform import resize
 import cv2
+import json
 import numpy as np
+import xgboost as xgb
+from PIL import Image
 from skimage.transform import resize
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 import requests
-from transformers import AutoProcessor, LlavaForConditionalGeneration
+
+import tensorflow as tf
+from keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.applications.efficientnet_v2 import preprocess_input
+
+from transformers import ViTFeatureExtractor, ViTModel, AutoProcessor, LlavaForConditionalGeneration
 from torchvision import transforms
 from huggingface_hub import login
 
-model = joblib.load("Task_1\EfficientNet_model.pkl")
+efficientnet_model = joblib.load(r"Task_1\EfficientNet_model.pkl")
 
 feature_extractor = ViTFeatureExtractor.from_pretrained("google/vit-large-patch16-224-in21k")
 vit_model = ViTModel.from_pretrained("google/vit-large-patch16-224-in21k")
 
-model = LlavaForConditionalGeneration.from_pretrained("llava-hf/llava-1.5-7b-hf")
+llava_model = LlavaForConditionalGeneration.from_pretrained("llava-hf/llava-1.5-7b-hf")
 processor = AutoProcessor.from_pretrained("llava-hf/llava-1.5-7b-hf")
 
 def image_classification(image_path):
@@ -39,7 +37,7 @@ def image_classification(image_path):
         img_array = img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0)
         img_array = preprocess_input(img_array)
-        prediction = model.predict(img_array)
+        prediction = efficientnet_model.predict(img_array)
         probability = prediction[0][0]
         
         # Determine the class based on the probability
@@ -53,28 +51,22 @@ def image_classification(image_path):
     predicted_class = predict_image(image_path)
     return predicted_class
 
-def artifact_detection(image_path):
-    login(token="your_huggingface_token") # Replace 'your_huggingface_token' with your actual token
+def artifact_detection(image_path, hf_token):
+    login(token=hf_token) # Replace 'your_huggingface_token' with your actual token
 
-    models_directory = "Task_2\\models\\xgb_model_params\\xgb_models\\"
-    models_directory1 = "Task_2\\models\\xgb_models-no_params\\xgb_models"
-    models_directory2 = "Task_2\\models\\rf_models-20241126T171044Z-001\\rf_models\\"
+    models_directory = r"Task_2\models\xgb_model_params\xgb_models\\"
+    models_directory1 = r"Task_2\models\xgb_models-no_params\xgb_models"
+    models_directory2 = r"Task_2\models\rf_models-20241126T171044Z-001\rf_models\\"
 
     feature_extracting_model = "google/vit-large-patch16-224-in21k"
     explanation_generator_model = "llava-hf/llava-1.5-7b-hf"
-
-    feature_extractor = ViTFeatureExtractor.from_pretrained(feature_extracting_model)
-    vit_model = ViTModel.from_pretrained(feature_extracting_model)
-
-    model = LlavaForConditionalGeneration.from_pretrained(explanation_generator_model)
-    processor = AutoProcessor.from_pretrained(explanation_generator_model)
 
     # Define transformation required for processing
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5],
-                            std=[0.5, 0.5, 0.5]),
+                             std=[0.5, 0.5, 0.5]),
     ])
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -245,8 +237,8 @@ def artifact_detection(image_path):
     # Generate explanations for artifacts using LLaVA
     def artifact_with_explanation(image_path, artifact):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        model.to(device)
-        model.eval()
+        llava_model.to(device)
+        llava_model.eval()
         image = Image.open(image_path).convert("RGB")
 
         prompt = f"""USER: <image>
@@ -262,7 +254,7 @@ def artifact_detection(image_path):
 
         # Generate
         with torch.no_grad():
-            generate_ids = model.generate(**inputs, max_new_tokens=1000)
+            generate_ids = llava_model.generate(**inputs, max_new_tokens=1000)
 
         output = processor.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
         return output[output.index("ASSISTANT:")+len("ASSISTANT:")+1:]
@@ -405,13 +397,12 @@ def artifact_detection(image_path):
     }
 
     # Finding artifacts in image and generating explanations
-    import json
-    from PIL import Image
 
     image = Image.open(image_path)
     artifact_list = result(image)
     artifact_name_found = []
     explanation_generated = []
+    
     for artifact in artifact_list:
         artifact_exp_each = artifact_with_explanation(image_path,artifact)
         explanation_generated.append(artifact_exp_each)
@@ -427,10 +418,11 @@ def artifact_detection(image_path):
 
     dict_artifacts_with_explanation = {}
     for j in range(len(artifact_name_found)):
+        safe_key = keys.get(artifact_name_found[j], artifact_name_found[j])
         if loc_list[j]!="in the image":
-            dict_artifacts_with_explanation[keys[artifact_name_found[j]]] = explanation_generated[j]+f" The artifact is present at the {loc_list[j]} of the image."
+            dict_artifacts_with_explanation[safe_key] = explanation_generated[j]+f" The artifact is present at the {loc_list[j]} of the image."
         else:
-            dict_artifacts_with_explanation[keys[artifact_name_found[j]]] = explanation_generated[j]
+            dict_artifacts_with_explanation[safe_key] = explanation_generated[j]
 
     list_output = [{
             "index" : image_path,
@@ -439,14 +431,21 @@ def artifact_detection(image_path):
 
     return list_output
 
-# Replace 'path/to/your/image.jpg' with actual path
-image_path = 'path/to/your/image.jpg'
-predicted_class = image_classification(image_path)
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: python pipeline.py <path_to_image> <huggingface_token>")
+        sys.exit(1)
 
-print(f"The image is predicted to be: {predicted_class}")
+    input_image_path = sys.argv[1]
+    hf_token = sys.argv[2]
+    
+    # Replace 'path/to/your/image.jpg' with actual path
+    predicted_class = image_classification(input_image_path)
 
-if predicted_class=="fake":
-    print("Detecting Artifacts\n")
-    explanation_output = artifact_detection(image_path)
-    print("Artifacts and explanation : ")
-    print(explanation_output)
+    print(f"The image is predicted to be: {predicted_class}")
+
+    if predicted_class == "fake":
+        print("Detecting Artifacts\n")
+        explanation_output = artifact_detection(input_image_path, hf_token)
+        print("Artifacts and explanation : ")
+        print(explanation_output)
