@@ -32,7 +32,7 @@ Our solution integrates lightweight classification with robust artifact identifi
 - **Training:** Adversarial training on the CIFAKE dataset with augmented perturbations.
 - **Optimization:** A compact architecture ensures real-time, scalable detection.
 
-![task_1_pipeline](task1_training_pipeline.png "Task_1_pipeline")
+![task_1_pipeline](Miscellaneous/task1_training_pipeline.png "Task_1_pipeline")
 
 ### Task 2: Artifact Identification & Explanation
 - **Feature Extraction:** A pre-trained Vision Transformer (ViT) extracts fine-grained image features.
