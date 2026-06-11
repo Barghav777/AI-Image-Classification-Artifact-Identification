@@ -23,7 +23,8 @@ from transformers import ViTFeatureExtractor, ViTModel, AutoProcessor, LlavaForC
 from torchvision import transforms
 from huggingface_hub import login
 
-efficientnet_model = joblib.load(r"Task_1\EfficientNet_model.pkl")
+# Updated path to include Codebase
+efficientnet_model = joblib.load("Codebase/Task_1/EfficientNet_model.pkl")
 
 feature_extractor = ViTFeatureExtractor.from_pretrained("google/vit-large-patch16-224-in21k")
 vit_model = ViTModel.from_pretrained("google/vit-large-patch16-224-in21k")
@@ -54,9 +55,10 @@ def image_classification(image_path):
 def artifact_detection(image_path, hf_token):
     login(token=hf_token) # Replace 'your_huggingface_token' with your actual token
 
-    models_directory = r"Task_2\models\xgb_model_params\xgb_models\\"
-    models_directory1 = r"Task_2\models\xgb_models-no_params\xgb_models"
-    models_directory2 = r"Task_2\models\rf_models-20241126T171044Z-001\rf_models\\"
+    # Updated paths to include Codebase
+    models_directory = "Codebase/Task_2/models/xgb_model_params/xgb_models/"
+    models_directory1 = "Codebase/Task_2/models/xgb_models-no_params/xgb_models/"
+    models_directory2 = "Codebase/Task_2/models/rf_models-20241126T171044Z-001/rf_models/"
 
     feature_extracting_model = "google/vit-large-patch16-224-in21k"
     explanation_generator_model = "llava-hf/llava-1.5-7b-hf"
@@ -433,7 +435,7 @@ def artifact_detection(image_path, hf_token):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python pipeline.py <path_to_image> <huggingface_token>")
+        print("Usage: python inference.py <path_to_image> <huggingface_token>")
         sys.exit(1)
 
     input_image_path = sys.argv[1]
