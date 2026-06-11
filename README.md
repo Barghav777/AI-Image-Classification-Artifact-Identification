@@ -47,33 +47,34 @@ Our solution integrates lightweight classification with robust artifact identifi
 
 Your directory should look like this after extracting the files:
 ```text
-Codebase/
-├── Task_1/
-│   ├── data/
-│   │   ├── test/
-│   │   └── train/
-│   ├── inference_script.py
-│   ├── EfficientNet_model.pkl
-│   └── EfficientNet_training_script.ipynb
-├── Task_2/
-│   ├── data/
-│   │   └── artifacts/
-│   │       ├── Abruptly cut-off objects/
-│   │       ├── Aliasing along high-contrast edges/
-│   │       └── and 68 more...
-│   ├── models/
-│   │   ├── rf_models-20241126T171044Z-001/
-│   │   ├── xgb_model_params/
-│   │   └── xgb_models-no_params/
-│   ├── training_pipelines/
-│   │   ├── rf_training/
-│   │   ├── XGB_no_params_training/
-│   │   └── XGB_params_training/
-│   ├── ai-image-artifacts.txt
-│   ├── datasetGenerator.ipynb
-│   └── inference_script_task2.py
-├── CreatingPerturbations.py
-└── inference.py
+.
+├── Codebase/
+│   ├── Task_1/
+│   │   ├── data/
+│   │   │   ├── test/
+│   │   │   └── train/
+│   │   ├── EfficientNet_model.pkl
+│   │   └── EfficientNet_training_script.ipynb
+│   ├── Task_2/
+│   │   ├── data/
+│   │   │   └── artifacts/
+│   │   │       ├── Abruptly cut-off objects/
+│   │   │       ├── Aliasing along high-contrast edges/
+│   │   │       └── and 68 more...
+│   │   ├── models/
+│   │   │   ├── rf_models-20241126T171044Z-001/
+│   │   │   ├── xgb_model_params/
+│   │   │   └── xgb_models-no_params/
+│   │   ├── training_pipelines/
+│   │   │   ├── rf_training/
+│   │   │   ├── XGB_no_params_training/
+│   │   │   └── XGB_params_training/
+│   │   ├── ai-image-artifacts.txt
+│   │   ├── datasetGenerator.ipynb
+│   │   └── inference_script_task2.py
+│   ├── CreatingPerturbations.py
+│   └── pipeline.py
+└── inference_script.py
 
 ```
 
