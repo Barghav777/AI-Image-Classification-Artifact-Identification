@@ -143,7 +143,7 @@ When an image is evaluated, our ensemble of models (XGBoost without parameters, 
 2. Localization and Visualization
 After the artifacts are aggregated, SHAP heatmaps and bounding boxes are generated to physically localize the detected issues on the image, accompanied by LLaVA-generated explanations.
 
-![Visual Output](Miscellaneous/example_output.png "Visual Output")
+![Visual Output](Miscellaneous/example_generated.png "Visual Output")
 
 ## Troubleshooting
 
