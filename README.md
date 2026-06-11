@@ -13,7 +13,7 @@ The challenge focuses on enhancing transparency in automated image verification 
 ### Task 1: Detection of AI-Generated Images
 - Classifying images into real or AI-generated.
 - Metrics: Accuracy, Precision, Recall, F1 Score.
-- # Results
+- ### Results
   - F1 Score - `95.56%`
   - Recall - `97.93%`
   - Precision - `93.31%`
