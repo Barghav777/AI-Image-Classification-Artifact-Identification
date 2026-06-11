@@ -58,7 +58,8 @@ Your directory should look like this after extracting the files:
 │   │   │   ├── test/
 │   │   │   └── train/
 │   │   ├── EfficientNet_model.pkl
-│   │   └── EfficientNet_training_script.ipynb
+│   │   ├── EfficientNet_training_script.ipynb
+|   |   └── inference_script_task2.py
 │   ├── Task_2/
 │   │   ├── data/
 │   │   │   └── artifacts/
@@ -70,14 +71,17 @@ Your directory should look like this after extracting the files:
 │   │   │   ├── xgb_model_params/
 │   │   │   └── xgb_models-no_params/
 │   │   ├── training_pipelines/
-│   │   │   ├── rf_training/
-│   │   │   ├── XGB_no_params_training/
-│   │   │   └── XGB_params_training/
+│   │   │   ├── rf_training.ipynb
+│   │   │   ├── XGB_no_params_training.ipynb
+│   │   │   └── XGB_params_training.ipynb
 │   │   ├── ai-image-artifacts.txt
 │   │   ├── datasetGenerator.ipynb
 │   │   └── inference_script_task2.py
 │   └── CreatingPerturbations.py
-└── inference.py
+├── inference.py
+├── README.md
+└── requirements.txt
+
 
 ```
 
