@@ -73,13 +73,13 @@ Codebase/
 │   ├── datasetGenerator.ipynb
 │   └── inference_script_task2.py
 ├── CreatingPerturbations.py
-└── pipeline.py
+└── inference.py
 
 ```
 
 * `Task_1/`: Contains datasets, models, and training scripts for the classification task.
 * `Task_2/`: Contains datasets, trained ensemble models, pipelines, and scripts for artifact detection and explanation.
-* `pipeline.py`: The unified Python script to run both tasks simultaneously from the terminal.
+* `inference.py`: The unified Python script to run both tasks simultaneously from the terminal.
 * `CreatingPerturbations.py`: Python script used to create adversarially perturbed images.
 
 ## Steps to Execute the Pipeline
@@ -119,14 +119,14 @@ Ensure all pre-trained models are correctly placed inside the `Codebase` directo
 You can now run the entire pipeline directly from the terminal by passing the image path and your Hugging Face token as arguments:
 
 ```bash
-python pipeline.py <path_to_your_image.jpg> <your_huggingface_token>
+python inference.py <path_to_your_image.jpg> <your_huggingface_token>
 
 ```
 
 *Example:*
 
 ```bash
-python pipeline.py sample_images/test_fake.png hf_abc123XYZ...
+python inference.py sample_images/test_fake.png hf_abc123XYZ...
 
 ```
 
