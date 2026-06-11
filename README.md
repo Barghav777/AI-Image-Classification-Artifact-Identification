@@ -28,6 +28,8 @@ The challenge focuses on enhancing transparency in automated image verification 
 - Training: Adversarial training on the CIFAKE dataset with augmented perturbations.
 - Optimization: Compact architecture ensures real-time, scalable detection.
 
+![task_1_pipeline](task1_training_pipeline.png "Task_1_pipeline")
+
 ### Task 2: Artifact Identification & Explanation
 - Feature Extraction: Vision Transformer (ViT) to detect fine-grained details.
 - Artifact Detection: Ensemble models (XGBoost, Random Forest) identify inconsistencies like unnatural textures and lighting.
