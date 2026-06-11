@@ -3,8 +3,8 @@
 ## Overview
 - This project aims to develop a machine learning solution to address the growing challenges of detecting and explaining AI-generated images. The solution includes two primary tasks:
 
-- Detection of AI-Generated Images: Classify images as real or AI-generated.
-- Artifact Identification & Explanation: Identify artifacts in AI-generated images and provide concise explanations for their classification.
+  - Detection of AI-Generated Images: Classify images as real or AI-generated.
+  - Artifact Identification & Explanation: Identify artifacts in AI-generated images and provide concise explanations for their classification.
 
 The challenge focuses on enhancing transparency in automated image verification systems while maintaining computational efficiency.
 
