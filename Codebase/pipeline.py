@@ -58,7 +58,7 @@ def artifact_detection(image_path):
 
     models_directory = "Task_2\\models\\xgb_model_params\\xgb_models\\"
     models_directory1 = "Task_2\\models\\xgb_models-no_params\\xgb_models"
-    models_directory2 = "Task_2\\models\\rf_models-20241126T171044Z-001"
+    models_directory2 = "Task_2\\models\\rf_models-20241126T171044Z-001\\rf_models\\"
 
     feature_extracting_model = "google/vit-large-patch16-224-in21k"
     explanation_generator_model = "llava-hf/llava-1.5-7b-hf"
