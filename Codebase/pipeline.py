@@ -408,7 +408,6 @@ def artifact_detection(image_path):
     import json
     from PIL import Image
 
-    image_path = "path_to_your_image.png" # Replace with actual path
     image = Image.open(image_path)
     artifact_list = result(image)
     artifact_name_found = []
